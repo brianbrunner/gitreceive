@@ -52,12 +52,12 @@ EOF
       git init --bare > /dev/null
     fi
     cd $GITHOME
-    PRERECEIVE_HOOK="$REPO_PATH/hooks/pre-receive"
-    cat > $PRERECEIVE_HOOK <<EOF
+    POSTRECEIVE_HOOK="$REPO_PATH/hooks/post-receive"
+    cat > $POSTRECEIVE_HOOK <<EOF
 #!/bin/bash
 cat | $SELF hook
 EOF
-    chmod +x $PRERECEIVE_HOOK
+    chmod +x $POSTRECEIVE_HOOK
     git-shell -c "$SSH_ORIGINAL_COMMAND"
     ;;
 
