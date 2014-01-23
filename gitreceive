@@ -64,18 +64,15 @@ EOF
   hook)
     while read oldrev newrev refname
     do
-      # Only run this script for the master branch. You can remove this 
-      # if block if you wish to run it for others as well.
-      if [[ $refname = "refs/heads/master" ]] ; then
  
-        git archive $newrev | $GITHOME/receiver "$RECEIVE_REPO" "$newrev" "$RECEIVE_USER" "$RECEIVE_FINGERPRINT"  
+      git archive $newrev | $GITHOME/receiver "$RECEIVE_REPO" "$newrev" "$RECEIVE_USER" "$RECEIVE_FINGERPRINT"  
  
-        rc=$?
-        if [[ $rc != 0 ]] ; then
-          echo "      ERROR: failed on rev $newrev - push denied"
-          exit $rc
-        fi
+      rc=$?
+      if [[ $rc != 0 ]] ; then
+        echo "      ERROR: failed on rev $newrev - push denied"
+        exit $rc
       fi
+      
     done
     #exit 1 # for debugging
     ;;
